@@ -1,30 +1,68 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { Card, Stack, Text } from '@mantine/core';
-import { Loading } from '../loading';
+import React, { useState } from 'react';
+import { ActionIcon, Card, Grid } from '@mantine/core';
+import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { getGitHubFile, SearchItem } from '../../queries';
+import { SearchElementTitle } from '../searchElementTitle';
+import { SearchElementField } from '../searchElementField';
+import { SearchElementChart } from '../searchElementChart';
+import { ErrorBoundary } from '../errorBoundary';
 
 interface SearchElementProps {
     element: SearchItem
 }
 
 export const SearchElement = ({ element }: SearchElementProps) => {
+    const [expanded, setExpanded] = useState(false);
     const { isLoading, data } = useQuery(['material', element.url], () => getGitHubFile(element.url!));
 
-    if (isLoading) { return <Loading />; }
-
     return (
-        <>
+        <ErrorBoundary>
             <Card shadow="sm" padding="lg" radius="md" withBorder>
-                <Stack>
-                    {Object.keys(data).filter(key => ['UUID', 'Treibhausgasemissionen Total kg CO2-eq', 'Entsorgung'].indexOf(key) > -1).map((key, index) => (
-                        <div key={index}>
-                            <Text weight="600">{key}: </Text>
-                            <Text>{data[key]}</Text>
-                        </div>
-                    ))}
-                </Stack>
+                <Grid align="flex-end">
+                    <Grid.Col xs={12}>
+                        <SearchElementTitle name={data?.name} loading={isLoading} />
+                    </Grid.Col>
+                    <Grid.Col xs={3}>
+                        <SearchElementField name="Declared Unit: " data={convertUnit(data?.declared_unit)} loading={isLoading} />
+                    </Grid.Col>
+                    <Grid.Col xs={3}>
+                        <SearchElementField name="Subtype: " data={data?.subtype} loading={isLoading} />
+                    </Grid.Col>
+                    <Grid.Col xs={3}>
+                        <SearchElementField
+                          name="GWP Total: "
+                          data={`${
+                                data ? (Object.values(data.gwp)
+                                    .filter(item => item)
+                                    // @ts-ignore
+                                    .reduce((sum, currentValue) => sum + currentValue, 0) as number)
+                                    .toFixed(2) : 0
+                            } kg CO2eq`}
+                          loading={isLoading}
+                        />
+                    </Grid.Col>
+                    <Grid.Col xs={3}>
+                        <ActionIcon
+                          variant="default"
+                          style={{ float: 'right' }}
+                          onClick={() => setExpanded(!expanded)}
+                          disabled={isLoading}
+                        >
+                            {expanded ? <IconMinus size="1.1rem" /> : <IconPlus size="1.1rem" />}
+                        </ActionIcon>
+                    </Grid.Col>
+                </Grid>
+                <SearchElementChart show={expanded} data={data?.gwp as { [key: string]: number }} />
             </Card>
-        </>
+        </ErrorBoundary>
     );
+};
+
+const convertUnit = (unit?: string) => {
+    if (unit === 'M2') {
+        return 'M²';
+    } if (unit === 'M3') {
+        return 'M³';
+    } return unit;
 };

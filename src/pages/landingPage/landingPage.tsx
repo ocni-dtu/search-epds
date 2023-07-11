@@ -16,7 +16,7 @@ export const LandingPage = () => {
               wrap="wrap"
             >
                 <div>
-                    <Title order={1} mb="xl">Search for Environmental Product Declarations!</Title>
+                    <Title order={1} mb="xl">Search Table 7 for EPDs!</Title>
                     <SearchBar />
                 </div>
 

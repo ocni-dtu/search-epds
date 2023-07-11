@@ -1,24 +1,33 @@
 import React from 'react';
-import { Group, Header as MantineHeader, Image } from '@mantine/core';
+import { Grid, Header as MantineHeader, Image } from '@mantine/core';
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery } from '@mantine/hooks';
 import { SearchBar } from '../searchBar';
+import {useNavigate} from "react-router";
 
 export const Header = () => {
-    const height = 80;
+    const matches = useMediaQuery('(max-width: 30em)');
+    const height = matches ? 120 : 80;
+    const imageHeight = matches ? height / 2 : height;
     const location = useLocation();
+    const navigate = useNavigate();
 
     return (
         <MantineHeader height={height} p="xs">
-            <Group spacing="xl">
-                <Image
-                  pb="md"
-                  maw={height}
-                  radius="md"
-                  src="/logo.svg"
-                  alt="Open Source Construction Logo"
-                />
-                {location.pathname === '/search' ? <SearchBar /> : null}
-            </Group>
+            <Grid align="center">
+                <Grid.Col xs={12} sm={1} py={0}>
+                    <Image
+                      onClick={() => navigate('/')}
+                      maw={imageHeight}
+                      radius="md"
+                      src="/logo.svg"
+                      alt="EPD Search Logo"
+                    />
+                </Grid.Col>
+                <Grid.Col xs={12} sm={8} md={4}>
+                    {location.pathname === '/search' ? <SearchBar /> : null}
+                </Grid.Col>
+            </Grid>
         </MantineHeader>
     );
 };
