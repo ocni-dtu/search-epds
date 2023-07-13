@@ -1,6 +1,6 @@
 export const theme = {
-    fontFamily: 'TWKEverett, sans-serif',
+    fontFamily: 'Rubik, sans-serif',
     headings: {
-        fontFamily: 'TWKEverett, sans-serif',
+        fontFamily: 'Rubik, sans-serif',
     },
 };

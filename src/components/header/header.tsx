@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid, Header as MantineHeader, Image } from '@mantine/core';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
+import { useNavigate } from 'react-router';
 import { SearchBar } from '../searchBar';
-import {useNavigate} from "react-router";
 
 export const Header = () => {
     const matches = useMediaQuery('(max-width: 30em)');
@@ -20,7 +20,7 @@ export const Header = () => {
                       onClick={() => navigate('/')}
                       maw={imageHeight}
                       radius="md"
-                      src="/logo.svg"
+                      src="/logo.png"
                       alt="EPD Search Logo"
                     />
                 </Grid.Col>
