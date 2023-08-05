@@ -1,6 +1,6 @@
 import { Title } from '@mantine/core';
 import React from 'react';
-import {Bar, BarChart, CartesianGrid, Label, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
+import { Bar, BarChart, CartesianGrid, Label, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { ErrorBoundary } from '../errorBoundary';
 
 interface SearchElementFieldProps {

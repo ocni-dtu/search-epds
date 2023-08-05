@@ -23,13 +23,17 @@ export const SearchElement = ({ element }: SearchElementProps) => {
                     <Grid.Col xs={12}>
                         <SearchElementTitle name={data?.name} loading={isLoading} />
                     </Grid.Col>
-                    <Grid.Col xs={3}>
-                        <SearchElementField name="Declared Unit: " data={convertUnit(data?.declared_unit)} loading={isLoading} />
+                    <Grid.Col xs={2.75}>
+                        <SearchElementField
+                          name="Declared Unit: "
+                          data={convertUnit(data?.declared_unit)}
+                          loading={isLoading}
+                        />
                     </Grid.Col>
-                    <Grid.Col xs={3}>
+                    <Grid.Col xs={2.75}>
                         <SearchElementField name="Subtype: " data={data?.subtype} loading={isLoading} />
                     </Grid.Col>
-                    <Grid.Col xs={3}>
+                    <Grid.Col xs={2.75}>
                         <SearchElementField
                           name="GWP Total: "
                           data={`${
@@ -38,11 +42,14 @@ export const SearchElement = ({ element }: SearchElementProps) => {
                                     // @ts-ignore
                                     .reduce((sum, currentValue) => sum + currentValue, 0) as number)
                                     .toFixed(2) : 0
-                            } kg CO2eq`}
+                            } kg CO₂-Eq`}
                           loading={isLoading}
                         />
                     </Grid.Col>
-                    <Grid.Col xs={3}>
+                    <Grid.Col xs={2.75}>
+                        <SearchElementField name="Source: " data={data?.source.name} loading={isLoading} link={data?.source.url} />
+                    </Grid.Col>
+                    <Grid.Col xs={1}>
                         <ActionIcon
                           variant="default"
                           style={{ float: 'right' }}
@@ -62,7 +69,9 @@ export const SearchElement = ({ element }: SearchElementProps) => {
 const convertUnit = (unit?: string) => {
     if (unit === 'M2') {
         return 'M²';
-    } if (unit === 'M3') {
+    }
+    if (unit === 'M3') {
         return 'M³';
-    } return unit;
+    }
+    return unit;
 };
