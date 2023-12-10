@@ -1,2 +1,2 @@
-export * from './landingPage';
-export * from './searchPage';
+export * from './landingPage'
+export * from './searchPage'

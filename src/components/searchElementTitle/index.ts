@@ -1,1 +1,1 @@
-export * from './searchElementTitle';
+export * from './searchElementTitle'
