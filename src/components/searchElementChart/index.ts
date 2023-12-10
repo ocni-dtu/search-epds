@@ -1,1 +1,1 @@
-export * from './searchElementChart';
+export * from './searchElementChart'

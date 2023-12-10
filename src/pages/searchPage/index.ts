@@ -1,1 +1,2 @@
-export * from './searchPage';
+export * from './searchPage'
+export { SearchPage as default } from './searchPage'

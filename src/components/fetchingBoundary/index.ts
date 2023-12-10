@@ -1,1 +1,1 @@
-export * from './fetchingBoundary';
+export * from './fetchingBoundary'

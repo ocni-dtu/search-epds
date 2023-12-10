@@ -1,1 +1,2 @@
-export * from './landingPage';
+export * from './landingPage'
+export { LandingPage as default } from './landingPage'

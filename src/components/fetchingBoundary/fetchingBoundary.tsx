@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { Loading } from '../loading';
-import { ErrorMessage } from '../errorMessage';
-import { ErrorBoundary } from '../errorBoundary';
+import { ReactNode } from 'react'
+import { Loading } from '../loading'
+import { ErrorMessage } from '../errorMessage'
+import { ErrorBoundary } from '../errorBoundary'
 
 interface FetchingBoundaryProps {
   loading?: boolean
@@ -10,19 +10,19 @@ interface FetchingBoundaryProps {
 }
 
 export const FetchingBoundary = <P extends FetchingBoundaryProps>(props: P & FetchingBoundaryProps) => {
-  const { loading, error, children } = props;
+  const { loading, error, children } = props
 
   if (loading) {
-    return <Loading />;
+    return <Loading />
   }
 
   if (error) {
-    return <ErrorMessage error={error} data-testid="error-message" />;
+    return <ErrorMessage error={error} data-testid='error-message' />
   }
 
   return (
-    <ErrorBoundary data-testid="error-boundary" {...(props as P)}>
+    <ErrorBoundary data-testid='error-boundary' {...(props as P)}>
       {children}
     </ErrorBoundary>
-  );
-};
+  )
+}

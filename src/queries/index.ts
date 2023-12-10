@@ -1,2 +1,2 @@
-export * from './searchGitHub';
-export * from './getGitHubFile';
+export * from './searchGitHub'
+export * from './getGitHubFile'
