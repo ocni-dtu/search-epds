@@ -12,6 +12,7 @@ interface SearchElementFieldProps {
   data?: ChartDataPoint[]
   valueNames: string[]
   show: boolean
+  height?: number
 }
 
 export const SearchElementChart = ({
@@ -19,6 +20,7 @@ export const SearchElementChart = ({
   data = [{}],
   valueNames,
   show,
+  height = 300,
 }: SearchElementFieldProps) => {
   if (!show) {
     return null
@@ -29,10 +31,10 @@ export const SearchElementChart = ({
         {indicator}{' '}
       </Title>
 
-      <ResponsiveContainer width='100%' height={300}>
+      <ResponsiveContainer width='100%' height={height}>
         <BarChart
           width={500}
-          height={300}
+          height={height}
           data={data}
           margin={{
             top: 5,

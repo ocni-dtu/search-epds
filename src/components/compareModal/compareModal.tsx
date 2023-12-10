@@ -32,7 +32,7 @@ export const CompareModal = ({ opened, close, elements }: CompareModalProps) => 
   return (
     <Modal opened={opened} onClose={close} centered withCloseButton={false} size='xl'>
       <ErrorBoundary>
-        <SearchElementChart valueNames={elements.map((element) => element.name)} show data={data} />
+        <SearchElementChart valueNames={elements.map((element) => element.name)} show data={data} height={500} />
       </ErrorBoundary>
     </Modal>
   )
