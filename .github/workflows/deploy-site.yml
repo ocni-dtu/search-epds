@@ -43,6 +43,8 @@ jobs:
         run: npm run build
         env:
           VITE_GITHUB_TOKEN: ${{ secrets.TABLE7_TOKEN }}
+          VITE_GITHUB_REPO_PATH: ${{ vars.VITE_GITHUB_REPO_PATH }}
+          VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3

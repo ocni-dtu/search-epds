@@ -10,7 +10,9 @@ export interface SearchItem {
 }
 
 export const searchGitHub = async (query: string): Promise<SearchResult> => {
-  const url = `https://api.github.com/search/code?q=${query}%20repo:ocni-dtu/table7%20path:/table7`
+  const url = `https://api.github.com/search/code?q=${query}%20repo:${import.meta.env.VITE_GITHUB_REPO}%20path:${
+    import.meta.env.VITE_GITHUB_REPO_PATH
+  }`
   const headers = {
     Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
   }
