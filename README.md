@@ -11,7 +11,7 @@ The ambition is to add more features such as:
 - Facilitating the download of specific EPDs
 - Integrating additional databases, such as KBOB or Ökobau
 
-https://github.com/ocni-dtu/search-epds/raw/main/public/EPD%20Search.webm
+https://github.com/ocni-dtu/search-epds/assets/16247318/b38f80ec-da5b-468c-99a6-84fc34a912e0
 
 ## Getting Started
 
