@@ -5,6 +5,9 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+  pull_request:
+    branches:
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -39,6 +42,9 @@ jobs:
       - name: NPM Install
         run: npm ci
 
+      - name: Check
+        run: npm run check
+
       - name: Build
         run: npm run build
         env:
@@ -47,6 +53,7 @@ jobs:
           VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
 
       - name: Upload artifact for deployment job
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v3
         with:
           name: node-app
@@ -54,6 +61,7 @@ jobs:
           
   deploy:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
     environment:
       name: github-pages
@@ -63,13 +71,15 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
           path: '.'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
