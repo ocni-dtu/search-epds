@@ -15,3 +15,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </React.StrictMode>,
 )
+
+declare global {
+  interface Window {
+    umami: {
+      track: (text: string) => void
+    }
+  }
+}
