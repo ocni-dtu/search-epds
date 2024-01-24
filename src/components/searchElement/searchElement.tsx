@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import { ActionIcon, Card, Grid, Tooltip } from '@mantine/core'
-import { IconChartBar, IconMinus, IconPlus } from '@tabler/icons-react'
+import { IconChartBar, IconDownload, IconMinus, IconPlus } from '@tabler/icons-react'
 import { getGitHubFile, SearchItem } from '../../queries'
 import { SearchElementTitle } from '../searchElementTitle'
 import { SearchElementField } from '../searchElementField'
@@ -43,6 +43,17 @@ export const SearchElement = ({
     } else {
       setSelectedElements((elements) => [...elements, { ...element, name: data?.name, gwp: data?.gwp }])
     }
+  }
+
+  const handleDownloadClick = () => {
+    const base64doc = btoa(JSON.stringify(data, undefined, 2))
+    const a = document.createElement('a')
+    const e = new MouseEvent('click')
+
+    a.download = `${data.name}.json`
+    a.href = 'data:text/json;base64,' + base64doc
+    a.dispatchEvent(e)
+    window.umami.track(`Download EPD Button - ${data.name} - ${data.id}`)
   }
 
   const gwpData = useMemo(() => {
@@ -98,6 +109,16 @@ export const SearchElement = ({
             >
               <Tooltip label='Expand EPD'>
                 {expanded ? <IconMinus size='1.1rem' /> : <IconPlus size='1.1rem' />}
+              </Tooltip>
+            </ActionIcon>
+            <ActionIcon
+              variant='default'
+              style={{ float: 'right' }}
+              sx={{ marginRight: 5 }}
+              onClick={handleDownloadClick}
+            >
+              <Tooltip label='Download EPD'>
+                <IconDownload size='1.1rem' />
               </Tooltip>
             </ActionIcon>
             <ActionIcon
