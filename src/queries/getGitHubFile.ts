@@ -1,6 +1,7 @@
 import { base64ToBytes } from './base64Decode'
+import { EPD } from 'epdx'
 
-export const getGitHubFile = async (url: string) => {
+export const getGitHubFile = async (url: string): Promise<EPD> => {
   const headers = {
     Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
   }

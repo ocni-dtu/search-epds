@@ -34,11 +34,18 @@ export const SearchElement = ({
   }
   const handleCompareClick = () => {
     if (selectedElements.length === 0) {
-      setSelectedElements([{ ...element, name: data?.name, gwp: data?.gwp }])
+      setSelectedElements([{ ...element, name: data?.name || '', gwp: (data?.gwp || {}) as { [key: string]: number } }])
     } else if (isThisElementSelected) {
       setSelectedElements((elements) => elements.filter((_element) => _element.url !== element.url))
     } else {
-      setSelectedElements((elements) => [...elements, { ...element, name: data?.name, gwp: data?.gwp }])
+      setSelectedElements((elements) => [
+        ...elements,
+        {
+          ...element,
+          name: data?.name || '',
+          gwp: (data?.gwp || {}) as { [key: string]: number },
+        },
+      ])
     }
   }
 
@@ -47,17 +54,17 @@ export const SearchElement = ({
     const a = document.createElement('a')
     const e = new MouseEvent('click')
 
-    a.download = `${data.name}.json`
+    a.download = `${data?.name}.json`
     a.href = 'data:text/json;base64,' + base64doc
     a.dispatchEvent(e)
-    window.umami.track(`Download EPD Button - ${data.name} - ${data.id}`)
+    window.umami.track(`Download EPD Button - ${data?.name} - ${data?.id}`)
   }
 
   const gwpData = useMemo(() => {
     if (!data) {
       return []
     }
-    return Object.entries(data.gwp)
+    return Object.entries(data?.gwp || {})
       .filter(([, value]) => value)
       .map(([key, value]) => ({ name: key.toUpperCase(), gwp: (value as number).toFixed(3) }))
   }, [data])
@@ -80,7 +87,7 @@ export const SearchElement = ({
               name='GWP Total: '
               data={`${
                 data
-                  ? Object.values(data.gwp)
+                  ? Object.values(data.gwp!)
                       .filter((item) => item)
                       .reduce<number>((sum, currentValue) => sum + (currentValue as number), 0)
                       .toFixed(2)
@@ -90,7 +97,12 @@ export const SearchElement = ({
             />
           </Grid.Col>
           <Grid.Col span={{ xs: 2.5 }}>
-            <SearchElementField name='Source: ' data={data?.source.name} loading={isLoading} link={data?.source.url} />
+            <SearchElementField
+              name='Source: '
+              data={data?.source?.name}
+              loading={isLoading}
+              link={data?.source?.url || undefined}
+            />
           </Grid.Col>
           <Grid.Col span={{ xs: 2 }}>
             <ActionIcon
