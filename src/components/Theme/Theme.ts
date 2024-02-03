@@ -59,7 +59,18 @@ export const theme = createTheme({
       '#319555',
       '#208146',
     ],
-    red: ['#ffedf0', '#f6dbdf', '#e5b6bc', '#d68e98', '#c86b79', '#c15665', '#be4a5a', '#a83b4b', '#973342', '#852837'],
+    red: [
+      '#ffedf0',
+      '#f6dbdf',
+      '#e5b6bc',
+      '#d68e98',
+      '#c86b79',
+      '#c15665',
+      '#be4a5a',
+      '#a83b4b',
+      '#973342',
+      '#852837'
+    ],
     yellow: [
       '#fcf8e8',
       '#f4efd9',
