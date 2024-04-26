@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextInput } from '@mantine/core'
+import { Select, TextInput } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
 import { useNavigate } from 'react-router'
 import { useLocation } from 'react-router-dom'
@@ -26,6 +26,7 @@ export const SearchBar = () => {
       radius='xl'
       size={query ? 'sm' : 'xl'}
       leftSection={<IconSearch size={query ? '1rem' : '2rem'} />}
+      style={{ paddingRight: 8}}
     />
   )
 }
